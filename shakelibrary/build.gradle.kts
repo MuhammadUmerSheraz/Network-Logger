@@ -4,6 +4,18 @@ plugins {
     id("maven-publish") // Add this line
 
 }
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+                groupId = "com.github.MuhammadUmerSheraz"
+                artifactId = "Network-Logger"
+                version = "1.0.0"
+            }
+        }
+    }
+}
 
 android {
    namespace = "umer.sheraz.shakelibrary"
