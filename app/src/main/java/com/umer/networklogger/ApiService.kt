@@ -7,6 +7,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -25,6 +26,8 @@ interface ApiService {
     @FormUrlEncoded
     @POST("getappsetting")
     fun getAppSetting(
+        @Header("auth") auth:String,
+        @Header("token") token:String,
         @Field("phonetype") phoneType:String,
         @Field("phonetype2") phonetype2:String,
     ): Call<GetAppSettingResponse>

@@ -1,5 +1,6 @@
 package umer.sheraz.shakelibrary
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -16,15 +17,20 @@ class ApiLoggingInterceptor : Interceptor {
         val timestamp = System.currentTimeMillis()
 
         // Extract API name from URL path
+        val headersJson = convertHeadersToJson(request.headers)
+
         val method = request.method
         val apiName = request.url.toUrl().toString()
+        val contentType = request.body?.contentType()?.subtype
 
         // Capture request body
         var apiParameters: String? = null
         request.body?.let { body ->
             val buffer = Buffer()
+            body.contentType()
             body.writeTo(buffer)
             apiParameters = buffer.readString(StandardCharsets.UTF_8)
+
         }
 
         // Proceed with the request
@@ -48,6 +54,8 @@ class ApiLoggingInterceptor : Interceptor {
         // Log API call
         apiCallLogs.add(
             ApiCallLog(
+                headers = headersJson,
+                contentType = contentType,
                 method = method,
                 apiName = apiName,
                 apiResponse = responseBodyString,
@@ -59,6 +67,27 @@ class ApiLoggingInterceptor : Interceptor {
         )
 
         return response
+    }
+    // Function to convert headers to JSON
+    fun convertHeadersToJson(headers: okhttp3.Headers): String {
+        try {
+            val jsonObject = JsonObject()
+            for (i in 0 until headers.size) {
+                val name = headers.name(i)
+                val value = headers.value(i)
+                jsonObject.addProperty(name, value)
+            }
+            return jsonObject.toString()
+        } catch (_: Exception) {
+            return headers.toString()
+        }
+    }
+    // Helper function to format form data
+    fun formatFormData(formData: String): String {
+        return formData.split("&").joinToString("\n") {
+            val pair = it.split("=")
+            "${pair[0]}: ${pair.getOrElse(1) { "" }}"
+        }
     }
 
 
@@ -73,3 +102,4 @@ class ApiLoggingInterceptor : Interceptor {
 
     }
 }
+

@@ -11,16 +11,48 @@
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/_10sdp">
 
-    <TextView
-        android:id="@+id/tv_api_log"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="@dimen/_10sdp"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_10sdp"
-        tools:text="API NAME" />
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+
+        <TextView
+            android:layout_marginTop="@dimen/_5sdp"
+            android:id="@+id/tv_api_log"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp"
+            tools:text="URL" />
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_api_method"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                tools:text="GET" />
+
+            <TextView
+                android:id="@+id/tv_timestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                tools:text="12:00PM" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
 
 
 </androidx.cardview.widget.CardView>

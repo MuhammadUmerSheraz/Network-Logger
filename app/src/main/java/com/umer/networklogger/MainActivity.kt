@@ -34,17 +34,20 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_2).setOnClickListener {
             progress_circular?.isVisible = true
 
-            RetrofitInstance.apiService.getAppSetting("Android","IOS")
-                .enqueue(object: Callback<GetAppSettingResponse> {
+            RetrofitInstance.apiService.getAppSetting("Android", "IOS", "1", "3")
+                .enqueue(object : Callback<GetAppSettingResponse> {
                     override fun onFailure(call: Call<GetAppSettingResponse>, t: Throwable) {
                         print(call)
-                        print( t)
+                        print(t)
                         progress_circular?.isVisible = false
 
                     }
 
-                    override fun onResponse(call: Call<GetAppSettingResponse>, response: Response<GetAppSettingResponse>) {
-                       print(response)
+                    override fun onResponse(
+                        call: Call<GetAppSettingResponse>,
+                        response: Response<GetAppSettingResponse>
+                    ) {
+                        print(response)
                         progress_circular?.isVisible = false
 
                     }
@@ -62,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         }
         findViewById<Button>(R.id.btn_3).setOnClickListener {
             progress_circular?.isVisible = true
-            val postModel = PostModel("Title", "Body", 1,1)
+            val postModel = PostModel("Title", "Body", 1, 1)
             responseCallBack(
                 RetrofitInstance.apiService.putCall(
                     "https://jsonplaceholder.typicode.com/posts/1",
@@ -72,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         }
         findViewById<Button>(R.id.btn_4).setOnClickListener {
             progress_circular?.isVisible = true
-            val postModel = PostModel("Title", "Body", 1,1)
+            val postModel = PostModel("Title", "Body", 1, 1)
             responseCallBack(
                 RetrofitInstance.apiService.patchCall(
                     "https://jsonplaceholder.typicode.com/posts/1",

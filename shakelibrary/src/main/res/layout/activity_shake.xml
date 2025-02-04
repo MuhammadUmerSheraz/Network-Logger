@@ -1,61 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/main"
     android:background="@color/white"
     android:layoutDirection="ltr">
 
-    <TextView
-        android:id="@+id/ctv_version"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:gravity="center"
-        android:padding="@dimen/_2sdp"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="v0.4.0 (100)" />
-
-    <TextView
-        android:id="@+id/tv_activty_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/_5sdp"
-        android:textAlignment="center"
-        android:textSize="@dimen/_10sdp"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_no_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:gravity="center"
         android:paddingTop="@dimen/_5sdp"
         android:text="No Logs available"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="@dimen/_10sdp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_api_log"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_clear"
-        app:layout_constraintTop_toBottomOf="@+id/ctv_version" />
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_clear"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/_5sdp"
+        tools:listitem="@layout/item_api_log" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_clear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/_10sdp"
         android:padding="@dimen/_10sdp"
-        android:text="Clear Log List"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:text="Clear Log List" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
