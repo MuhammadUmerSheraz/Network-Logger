@@ -1,6 +1,7 @@
 package com.umer.networklogger
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ProgressBar
 import androidx.activity.enableEdgeToEdge
@@ -32,14 +33,32 @@ class MainActivity : AppCompatActivity() {
         }
         findViewById<Button>(R.id.btn_2).setOnClickListener {
             progress_circular?.isVisible = true
-            val postModel = PostModel("Title", "Body", 1)
-            responseCallBack(
-                RetrofitInstance.apiService.postCall2(
-                    "https://admin-stage.tashwash.com/apiv2/auth/loginwithtoken"
-                   // "https://jsonplaceholder.typicode.com/posts",
-                   // postModel
-                )
-            )
+
+            RetrofitInstance.apiService.getAppSetting("Android","IOS")
+                .enqueue(object: Callback<GetAppSettingResponse> {
+                    override fun onFailure(call: Call<GetAppSettingResponse>, t: Throwable) {
+                        print(call)
+                        print( t)
+                        progress_circular?.isVisible = false
+
+                    }
+
+                    override fun onResponse(call: Call<GetAppSettingResponse>, response: Response<GetAppSettingResponse>) {
+                       print(response)
+                        progress_circular?.isVisible = false
+
+                    }
+                })
+
+//            val postModel = PostModel("Title", "Body", 1)
+//            responseCallBack(
+//                RetrofitInstance.apiService.postCall2(
+//                    //"https://admin-stage.tashwash.com/apiv2/auth/loginwithtoken"
+//                    "https://admin-stage.tashwash.com/apiv2/getappsetting"
+//                   // "https://jsonplaceholder.typicode.com/posts",
+//                   // postModel
+//                )
+//            )
         }
         findViewById<Button>(R.id.btn_3).setOnClickListener {
             progress_circular?.isVisible = true

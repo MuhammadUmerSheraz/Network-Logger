@@ -59,7 +59,8 @@ class ApiLogAdapter(
             val copyApiName = dialog.findViewById<TextView>(R.id.tv_cp_api_name)
             val copyParameters = dialog.findViewById<TextView>(R.id.tv_cp_params)
             val copyResponse = dialog.findViewById<TextView>(R.id.tv_cp_response)
-            val nonJsonBody = dialog.findViewById<TextView>(R.id.non_json_body)
+            val nonJsonResponse = dialog.findViewById<TextView>(R.id.non_json_response)
+            val nonJsonParams = dialog.findViewById<TextView>(R.id.non_json_params)
             val apiName = dialog.findViewById<TextView>(R.id.tv_api_name)
             val apiParams = dialog.findViewById<RecyclerView>(R.id.rcv_api_params)
             val closeIV = dialog.findViewById<ImageView>(R.id.closeIV)
@@ -80,9 +81,14 @@ class ApiLogAdapter(
             apiName.text = log.apiName
 
             if (!log.apiParameters.isNullOrBlank()) {
-                val jsonObject = JSONObject(log.apiParameters ?: "")
-                adapterParam.setData(jsonObject)
-                copyParameters.isVisible = true
+                try {
+                    val jsonObject = JSONObject(log.apiParameters ?: "")
+                    adapterParam.setData(jsonObject)
+                }catch (_: Exception){
+                    nonJsonParams.isVisible = true
+                    nonJsonParams.text=log.apiParameters
+                }
+
             } else {
                 copyParameters.isVisible = false
             }
@@ -92,14 +98,12 @@ class ApiLogAdapter(
                     val jsonObject = JSONObject(log.apiResponse ?: "")
                     adapter.setData(jsonObject)
                 } catch (_: Exception) {
-                    nonJsonBody.isVisible = true
-                    nonJsonBody.text=log.apiResponse
+                    nonJsonResponse.isVisible = true
+                    nonJsonResponse.text=log.apiResponse
                 }
                 copyResponse.isVisible = true
             } else {
                 copyResponse.isVisible = false
-                nonJsonBody.isVisible = false
-
             }
 
             copyFullRequest.setOnClickListener {

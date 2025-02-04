@@ -165,7 +165,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
-
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/non_json_params"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
 
 
 
@@ -213,7 +218,8 @@
                 />
 
             <TextView
-                android:id="@+id/non_json_body"
+                android:visibility="gone"
+                android:id="@+id/non_json_response"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />

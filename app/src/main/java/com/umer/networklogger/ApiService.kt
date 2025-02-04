@@ -4,6 +4,8 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
@@ -19,6 +21,13 @@ interface ApiService {
 
     @POST()
     fun postCall2(@Url url: String): Call<ResponseBody>
+
+    @FormUrlEncoded
+    @POST("getappsetting")
+    fun getAppSetting(
+        @Field("phonetype") phoneType:String,
+        @Field("phonetype2") phonetype2:String,
+    ): Call<GetAppSettingResponse>
 
 
     @POST()
