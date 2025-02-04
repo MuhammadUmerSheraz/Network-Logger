@@ -1,14 +1,12 @@
 package umer.sheraz.shakelibrary
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonParser
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 import okio.Buffer
-import org.json.JSONArray
-import org.json.JSONObject
 import umer.sheraz.shakelibrary.ShakeLibrary.apiCallLogs
 import java.nio.charset.StandardCharsets
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonParser
 
 
 class ApiLoggingInterceptor : Interceptor {
@@ -65,8 +63,13 @@ class ApiLoggingInterceptor : Interceptor {
 
 
     fun beautifyJson(jsonString: String): String {
-        val jsonElement = JsonParser.parseString(jsonString)
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        return gson.toJson(jsonElement)
+        try {
+            val jsonElement = JsonParser.parseString(jsonString)
+            val gson = GsonBuilder().setPrettyPrinting().create()
+            return gson.toJson(jsonElement)
+        }catch (_: Exception){
+            return jsonString
+        }
+
     }
 }

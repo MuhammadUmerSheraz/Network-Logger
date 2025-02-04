@@ -212,7 +212,11 @@
                 android:layout_height="wrap_content"
                 />
 
-
+            <TextView
+                android:id="@+id/non_json_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

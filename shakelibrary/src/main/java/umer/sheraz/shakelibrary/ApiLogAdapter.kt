@@ -18,8 +18,10 @@ import org.json.JSONObject
 import java.util.ArrayList
 
 
-class ApiLogAdapter(private val context: Context,
-                    val apiCallLogs :ArrayList<ApiCallLog>) : RecyclerView.Adapter<ApiLogAdapter.MyViewHolder>() {
+class ApiLogAdapter(
+    private val context: Context,
+    val apiCallLogs: ArrayList<ApiCallLog>
+) : RecyclerView.Adapter<ApiLogAdapter.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -29,7 +31,6 @@ class ApiLogAdapter(private val context: Context,
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
 
 
         val log = apiCallLogs[position]
@@ -43,9 +44,9 @@ class ApiLogAdapter(private val context: Context,
 
 
             dialog.findViewById<LinearLayout>(R.id.ll_content).apply {
-                if(log.apiIsSuccessful == true) {
+                if (log.apiIsSuccessful == true) {
                     setBackgroundResource(R.drawable.box_dialog_background_success)
-                } else if(log.apiIsSuccessful == false) {
+                } else if (log.apiIsSuccessful == false) {
                     setBackgroundResource(R.drawable.box_dialog_background_fail)
                 }
             }
@@ -58,6 +59,7 @@ class ApiLogAdapter(private val context: Context,
             val copyApiName = dialog.findViewById<TextView>(R.id.tv_cp_api_name)
             val copyParameters = dialog.findViewById<TextView>(R.id.tv_cp_params)
             val copyResponse = dialog.findViewById<TextView>(R.id.tv_cp_response)
+            val nonJsonBody = dialog.findViewById<TextView>(R.id.non_json_body)
             val apiName = dialog.findViewById<TextView>(R.id.tv_api_name)
             val apiParams = dialog.findViewById<RecyclerView>(R.id.rcv_api_params)
             val closeIV = dialog.findViewById<ImageView>(R.id.closeIV)
@@ -66,7 +68,6 @@ class ApiLogAdapter(private val context: Context,
 
             val adapterParam = TreeAdapter()
             apiParams.adapter = adapterParam
-
 
 
             val adapter = TreeAdapter()
@@ -79,23 +80,31 @@ class ApiLogAdapter(private val context: Context,
             apiName.text = log.apiName
 
             if (!log.apiParameters.isNullOrBlank()) {
-                val jsonObject = JSONObject(log.apiParameters?:"")
+                val jsonObject = JSONObject(log.apiParameters ?: "")
                 adapterParam.setData(jsonObject)
-                copyParameters.isVisible=true
+                copyParameters.isVisible = true
             } else {
-                copyParameters.isVisible=false
+                copyParameters.isVisible = false
             }
 
             if (!log.apiResponse.isNullOrBlank()) {
-                val jsonObject = JSONObject(log.apiResponse?:"")
-                adapter.setData(jsonObject)
-                copyResponse.isVisible=true
+                try {
+                    val jsonObject = JSONObject(log.apiResponse ?: "")
+                    adapter.setData(jsonObject)
+                } catch (_: Exception) {
+                    nonJsonBody.isVisible = true
+                    nonJsonBody.text=log.apiResponse
+                }
+                copyResponse.isVisible = true
             } else {
-                copyResponse.isVisible=false
+                copyResponse.isVisible = false
+                nonJsonBody.isVisible = false
+
             }
 
             copyFullRequest.setOnClickListener {
-                val text = "Api Name:\n${log.apiName}\n\n${if (copyParameters.isVisible) "Api Parameters:\n${log.apiParameters}\n\n" else ""}Api Response:\n${log.apiResponse}"
+                val text =
+                    "Api Name:\n${log.apiName}\n\n${if (copyParameters.isVisible) "Api Parameters:\n${log.apiParameters}\n\n" else ""}Api Response:\n${log.apiResponse}"
                 copyClipBoard("Full Api Request", text)
             }
 

@@ -1,5 +1,6 @@
 package com.umer.networklogger
 
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -15,12 +16,16 @@ object RetrofitInstance {
             level = HttpLoggingInterceptor.Level.BODY // Optional: Logs request/response
         })
         .build()
-
+    var gson = GsonBuilder()
+        .setLenient()
+        .create()
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
-            .addConverterFactory(GsonConverterFactory.create())  // To convert JSON to Kotlin objects
+            //.addConverterFactory(GsonConverterFactory.create())  // To convert JSON to Kotlin objects
+            .addConverterFactory(GsonConverterFactory.create(gson))
+
             .build()
     }
 

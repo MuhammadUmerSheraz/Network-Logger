@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             val postModel = PostModel("Title", "Body", 1)
             responseCallBack(
                 RetrofitInstance.apiService.postCall2(
-                    "https://admin-stage.tashwash.com/apiv2/getappsetting"
+                    "https://admin-stage.tashwash.com/apiv2/auth/loginwithtoken"
                    // "https://jsonplaceholder.typicode.com/posts",
                    // postModel
                 )
