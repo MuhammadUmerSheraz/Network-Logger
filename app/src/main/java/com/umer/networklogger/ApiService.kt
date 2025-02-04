@@ -18,6 +18,10 @@ interface ApiService {
 
 
     @POST()
+    fun postCall2(@Url url: String): Call<ResponseBody>
+
+
+    @POST()
     fun postCall(@Url url: String, @Body postModel: PostModel): Call<ResponseBody>
 
     @PUT()

@@ -34,9 +34,10 @@ class MainActivity : AppCompatActivity() {
             progress_circular?.isVisible = true
             val postModel = PostModel("Title", "Body", 1)
             responseCallBack(
-                RetrofitInstance.apiService.postCall(
-                    "https://jsonplaceholder.typicode.com/posts",
-                    postModel
+                RetrofitInstance.apiService.postCall2(
+                    "https://admin-stage.tashwash.com/apiv2/getappsetting"
+                   // "https://jsonplaceholder.typicode.com/posts",
+                   // postModel
                 )
             )
         }
