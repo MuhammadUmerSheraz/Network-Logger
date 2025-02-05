@@ -1,7 +1,5 @@
 package umer.sheraz.shakelibrary
 
-import android.content.Context
-import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
@@ -12,17 +10,10 @@ import okhttp3.Response
 import okio.Buffer
 import umer.sheraz.shakelibrary.ShakeLibrary.saveApiLogToFile
 import umer.sheraz.shakelibrary.ShakeLibrary.saveRequestId
-import java.io.File
 import java.nio.charset.StandardCharsets
-import java.util.UUID
 
 
-class ApiLoggingInterceptor(context: Context) : Interceptor {
-
-
-    private val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences("ApiLogs", Context.MODE_PRIVATE)
-
+class ApiLoggingInterceptor() : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request: Request = chain.request()

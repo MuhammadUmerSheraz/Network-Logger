@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         progress_circular = findViewById<ProgressBar>(R.id.progress_bar)
-        val retrofit =RetrofitInstance.getApiService(this)
+        val retrofit =RetrofitInstance.getApiService()
         findViewById<Button>(R.id.btn_1).setOnClickListener {
             progress_circular?.isVisible = true
             responseCallBack(retrofit.getCall("https://dummyjson.com/products"))
