@@ -85,10 +85,8 @@ Full Example
 
 ## Screenshots
 
-![App Screenshot](https://drive.google.com/file/d/18ToUnc15aQEjba_pOIOla0vrnI5fbBT8/view?usp=sharing)
-
-![App Screenshot](https://drive.google.com/file/d/1hrZEsFoFr-mYZhN-rUXNfT6DZoZzrV_V/view?usp=drive_link)
-
+![App Screenshot](https://drive.google.com/uc?export=view&id=18ToUnc15aQEjba_pOIOla0vrnI5fbBT8)
+![App Screenshot](https://drive.google.com/uc?export=view&id=1hrZEsFoFr-mYZhN-rUXNfT6DZoZzrV_V)
 
 
 ## Demo
