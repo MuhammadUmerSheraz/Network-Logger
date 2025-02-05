@@ -88,6 +88,10 @@ Full Example
 ![App Screenshot](https://drive.google.com/uc?export=view&id=18ToUnc15aQEjba_pOIOla0vrnI5fbBT8)
 ![App Screenshot](https://drive.google.com/uc?export=view&id=1hrZEsFoFr-mYZhN-rUXNfT6DZoZzrV_V)
 
+<p float="left">
+  <img src="https://drive.google.com/uc?export=view&id=18ToUnc15aQEjba_pOIOla0vrnI5fbBT8" width="300" height="200" />
+  <img src="https://drive.google.com/uc?export=view&id=1hrZEsFoFr-mYZhN-rUXNfT6DZoZzrV_V" width="300" height="200" />
+</p>
 
 ## Demo
 
