@@ -10,6 +10,7 @@ import okhttp3.Response
 import okio.Buffer
 import umer.sheraz.shakelibrary.ShakeLibrary.saveApiLogToFile
 import umer.sheraz.shakelibrary.ShakeLibrary.saveRequestId
+import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
 
 
@@ -32,8 +33,11 @@ class ApiLoggingInterceptor() : Interceptor {
             body.contentType()
             body.writeTo(buffer)
             apiParameters = buffer.readString(StandardCharsets.UTF_8)
+            apiParameters= URLDecoder.decode(apiParameters, StandardCharsets.UTF_8.toString())
 
         }
+
+
         // Build cURL command
         val curlRequest = buildCurlCommand(request)
 
@@ -142,6 +146,15 @@ class ApiLoggingInterceptor() : Interceptor {
             curlCommand.append(" -H \"$name: $value\"")
         }
 
+        // If a request body exists and the Content-Type header is not already added,
+        // append the Content-Type header based on the body's content type.
+        body?.let {
+            val bodyContentType = it.contentType()?.toString()
+            if (bodyContentType != null && headers["Content-Type"] == null) {
+                curlCommand.append(" -H \"Content-Type: $bodyContentType\"")
+            }
+        }
+
         // Add body data if available
         body?.let {
             val contentType = it.contentType()
@@ -165,7 +178,7 @@ class ApiLoggingInterceptor() : Interceptor {
                     it.writeTo(buffer)
                     val bodyContent = buffer.readString(StandardCharsets.UTF_8)
                     if (bodyContent.isNotBlank()) {
-                        curlCommand.append(" -d \"$bodyContent\"")
+                        curlCommand.append(" -d \'$bodyContent\'")
                     }
                 }
 
@@ -189,7 +202,7 @@ class ApiLoggingInterceptor() : Interceptor {
                     it.writeTo(buffer)
                     val bodyContent = buffer.readString(StandardCharsets.UTF_8)
                     if (bodyContent.isNotBlank()) {
-                        curlCommand.append(" -d \"$bodyContent\"")
+                        curlCommand.append(" -d \'$bodyContent\'")
                     }
                 }
             }
