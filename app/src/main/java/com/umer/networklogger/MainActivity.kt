@@ -12,6 +12,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import umer.sheraz.shakelibrary.ShakeLibrary
 
 class MainActivity : AppCompatActivity() {
     var progress_circular: ProgressBar? = null
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_1).setOnClickListener {
             progress_circular?.isVisible = true
             responseCallBack(retrofit.getCall("https://dummyjson.com/products"))
+          //  ShakeLibrary.navigateLogsActivity(this) // Start shake detection globally
         }
         findViewById<Button>(R.id.btn_2).setOnClickListener {
             progress_circular?.isVisible = true

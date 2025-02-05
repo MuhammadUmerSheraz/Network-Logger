@@ -86,7 +86,7 @@ object ShakeLibrary : Application.ActivityLifecycleCallbacks {
         val app = context.applicationContext as Application
         app.registerActivityLifecycleCallbacks(this)
         shakeDetector = ShakeDetector(WeakReference(context)) {
-            openShakeActivity(context)
+            navigateLogsActivity(context)
         }
         logsDirectory = File(context.filesDir, "api_logs")
         sharedPreferences =
@@ -97,7 +97,7 @@ object ShakeLibrary : Application.ActivityLifecycleCallbacks {
 
     }
 
-    private fun openShakeActivity(context: Context) {
+    fun navigateLogsActivity(context: Context) {
         if (!isActivityOpened && !isActivityDetailOpened) {
             isActivityOpened = true
             val intent = Intent(context, ShakeActivity::class.java)
