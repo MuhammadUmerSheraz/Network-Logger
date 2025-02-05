@@ -1,7 +1,6 @@
 package com.umer.networklogger
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.ProgressBar
 import androidx.activity.enableEdgeToEdge
@@ -26,15 +25,15 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         progress_circular = findViewById<ProgressBar>(R.id.progress_bar)
-
+        val retrofit =RetrofitInstance.getApiService(this)
         findViewById<Button>(R.id.btn_1).setOnClickListener {
             progress_circular?.isVisible = true
-            responseCallBack(RetrofitInstance.apiService.getCall("https://dummyjson.com/products"))
+            responseCallBack(retrofit.getCall("https://dummyjson.com/products"))
         }
         findViewById<Button>(R.id.btn_2).setOnClickListener {
             progress_circular?.isVisible = true
 
-            RetrofitInstance.apiService.getAppSetting("Android", "IOS", "1", "3")
+            retrofit.getAppSetting("Android", "IOS", "1", "3")
                 .enqueue(object : Callback<GetAppSettingResponse> {
                     override fun onFailure(call: Call<GetAppSettingResponse>, t: Throwable) {
                         print(call)
@@ -67,7 +66,7 @@ class MainActivity : AppCompatActivity() {
             progress_circular?.isVisible = true
             val postModel = PostModel("Title", "Body", 1, 1)
             responseCallBack(
-                RetrofitInstance.apiService.putCall(
+                retrofit.putCall(
                     "https://jsonplaceholder.typicode.com/posts/1",
                     postModel
                 )
@@ -77,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             progress_circular?.isVisible = true
             val postModel = PostModel("Title", "Body", 1, 1)
             responseCallBack(
-                RetrofitInstance.apiService.patchCall(
+                retrofit.patchCall(
                     "https://jsonplaceholder.typicode.com/posts/1",
                     postModel
                 )
@@ -86,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_5).setOnClickListener {
             progress_circular?.isVisible = true
             responseCallBack(
-                RetrofitInstance.apiService.deleteCall(
+                retrofit.deleteCall(
                     "https://jsonplaceholder.typicode.com/posts/1",
                 )
             )

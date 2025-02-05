@@ -5,9 +5,18 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:layoutDirection="ltr">
 
+
+    <ImageView
+        android:id="@+id/closeIV"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/_10sdp"
+        android:src="@drawable/ic_cross"
+        android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/tv_no_items"
@@ -18,7 +27,6 @@
         android:paddingTop="@dimen/_5sdp"
         android:text="No Logs available"
         android:textAlignment="center"
-        android:textColor="@color/black"
         android:textSize="@dimen/_10sdp"
         android:visibility="gone" />
 
@@ -27,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_clear"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/closeIV"
         android:layout_margin="@dimen/_5sdp"
         tools:listitem="@layout/item_api_log" />
 

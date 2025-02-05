@@ -1,5 +1,7 @@
 package umer.sheraz.shakelibrary
 
+import java.util.UUID
+
 data class ApiCallLog(
     var headers: String? = null,
     var contentType: String? = null,
@@ -9,6 +11,8 @@ data class ApiCallLog(
     var apiParameters: String? = null,
     var apiIsSuccessful: Boolean? = null,
     var apiHttpCode: Int? = null,
-    val timestamp: Long,
+    val curlRequest: String? = null,
+    val timestamp: Long = System.currentTimeMillis(),
+    val id: String = UUID.randomUUID().toString()
 
 )

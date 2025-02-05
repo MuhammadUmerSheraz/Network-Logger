@@ -2,6 +2,7 @@ package umer.sheraz.shakelibrary
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,9 +11,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
-import umer.sheraz.shakelibrary.ShakeLibrary.apiCallLogs
+import umer.sheraz.shakelibrary.ShakeLibrary.clearLogs
+import umer.sheraz.shakelibrary.ShakeLibrary.getRequestId
 import umer.sheraz.shakelibrary.ShakeLibrary.isActivityOpened
-import java.util.ArrayList
 
 class ShakeActivity : AppCompatActivity() {
     lateinit var tv_no_items: TextView
@@ -35,18 +36,19 @@ class ShakeActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.rv_api_log)
         recyclerView.layoutManager = LinearLayoutManager(this)
         btn_clear.setOnClickListener {
-            apiCallLogs.clear()
+            clearLogs()
             displayApiLogs()
         }
         displayApiLogs()
-
+        val closeIV = findViewById<ImageView>(R.id.closeIV)
+        closeIV.setOnClickListener {
+            finish()
+        }
     }
 
     fun displayApiLogs() {
-        apiCallLogs.sortByDescending {
-            it.timestamp
-        }
-        val adapter = ApiLogAdapter(this, apiCallLogs as ArrayList<ApiCallLog>)
+
+        val adapter = ApiLogAdapter(this, getRequestId())
         recyclerView.adapter = adapter
         tv_no_items.visibility =
             if (adapter.itemCount == 0) View.VISIBLE else View.GONE

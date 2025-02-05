@@ -1,4 +1,8 @@
 package umer.sheraz.shakelibrary
+
+import android.content.Context
+import android.content.SharedPreferences
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -6,15 +10,22 @@ import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 import okio.Buffer
-import umer.sheraz.shakelibrary.ShakeLibrary.apiCallLogs
+import umer.sheraz.shakelibrary.ShakeLibrary.saveApiLogToFile
+import umer.sheraz.shakelibrary.ShakeLibrary.saveRequestId
+import java.io.File
 import java.nio.charset.StandardCharsets
+import java.util.UUID
 
 
-class ApiLoggingInterceptor : Interceptor {
+class ApiLoggingInterceptor(context: Context) : Interceptor {
+
+
+    private val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences("ApiLogs", Context.MODE_PRIVATE)
+
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request: Request = chain.request()
-        val timestamp = System.currentTimeMillis()
 
         // Extract API name from URL path
         val headersJson = convertHeadersToJson(request.headers)
@@ -32,10 +43,11 @@ class ApiLoggingInterceptor : Interceptor {
             apiParameters = buffer.readString(StandardCharsets.UTF_8)
 
         }
+        // Build cURL command
+        val curlRequest = buildCurlCommand(request)
 
         // Proceed with the request
         val response = chain.proceed(request)
-
 
 
         // Capture response body
@@ -51,23 +63,43 @@ class ApiLoggingInterceptor : Interceptor {
         // Determine API success
         val apiIsSuccessful = response.isSuccessful
 
-        // Log API call
-        apiCallLogs.add(
-            ApiCallLog(
-                headers = headersJson,
-                contentType = contentType,
-                method = method,
-                apiName = apiName,
-                apiResponse = responseBodyString,
-                apiParameters = apiParameters,
-                apiIsSuccessful = apiIsSuccessful,
-                apiHttpCode = response.code,
-                timestamp = timestamp
+        val apiCallLog = ApiCallLog(
+            headers = headersJson,
+            contentType = contentType,
+            method = method,
+            apiName = apiName,
+            apiResponse = responseBodyString,
+            apiParameters = apiParameters,
+            apiIsSuccessful = apiIsSuccessful,
+            apiHttpCode = response.code,
+            curlRequest = curlRequest
+        )
+
+        // Save the unique request ID to SharedPreferences
+        saveRequestId(
+            Gson().toJson(
+                ApiCallLog(
+                    method = apiCallLog.method,
+                    apiName = apiCallLog.apiName,
+                    apiIsSuccessful = apiCallLog.apiIsSuccessful,
+                    id = apiCallLog.id,
+                )
             )
         )
 
+        // Save the detailed API log to a file
+        saveApiLogToFile(apiCallLog.id, apiCallLog)
         return response
     }
+
+
+
+
+
+
+    // Save the detailed log to a file
+
+
     // Function to convert headers to JSON
     fun convertHeadersToJson(headers: okhttp3.Headers): String {
         try {
@@ -82,11 +114,14 @@ class ApiLoggingInterceptor : Interceptor {
             return headers.toString()
         }
     }
-    // Helper function to format form data
+
     fun formatFormData(formData: String): String {
-        return formData.split("&").joinToString("\n") {
+        return formData.split("&").joinToString("&") {
             val pair = it.split("=")
-            "${pair[0]}: ${pair.getOrElse(1) { "" }}"
+            // Ensure that each key and value is properly URL-encoded
+            val key = pair[0]
+            val value = pair.getOrElse(1) { "" }
+            "$key=$value"
         }
     }
 
@@ -96,10 +131,81 @@ class ApiLoggingInterceptor : Interceptor {
             val jsonElement = JsonParser.parseString(jsonString)
             val gson = GsonBuilder().setPrettyPrinting().create()
             return gson.toJson(jsonElement)
-        }catch (_: Exception){
+        } catch (_: Exception) {
             return jsonString
         }
 
     }
+
+    private fun buildCurlCommand(request: Request): String {
+        val url = request.url.toUrl().toString()
+        val method = request.method
+        val headers = request.headers
+        val body = request.body
+        val curlCommand = StringBuilder("curl -X $method \"$url\"")
+
+        // Add headers to the cURL request
+        for (i in 0 until headers.size) {
+            val name = headers.name(i)
+            val value = headers.value(i)
+            curlCommand.append(" -H \"$name: $value\"")
+        }
+
+        // Add body data if available
+        body?.let {
+            val contentType = it.contentType()
+
+            // Handle specific content types
+            when (contentType?.subtype) {
+                "x-www-form-urlencoded" -> {
+                    // Handle form data (application/x-www-form-urlencoded)
+                    val buffer = Buffer()
+                    it.writeTo(buffer)
+                    val bodyContent = buffer.readString(StandardCharsets.UTF_8)
+                    if (bodyContent.isNotBlank()) {
+                        val formattedBody = formatFormData(bodyContent)
+                        curlCommand.append(" -d \"$formattedBody\"")
+                    }
+                }
+
+                "json" -> {
+                    // Handle JSON (application/json)
+                    val buffer = Buffer()
+                    it.writeTo(buffer)
+                    val bodyContent = buffer.readString(StandardCharsets.UTF_8)
+                    if (bodyContent.isNotBlank()) {
+                        curlCommand.append(" -d \"$bodyContent\"")
+                    }
+                }
+
+                "multipart" -> {
+                    // Handle Multipart (multipart/form-data)
+                    // Multipart data is more complex, and we'll need to extract the content boundaries and format it correctly.
+                    val boundary = contentType.parameter("boundary")
+                    if (boundary != null) {
+                        val buffer = Buffer()
+                        it.writeTo(buffer)
+                        val bodyContent = buffer.readString(StandardCharsets.UTF_8)
+                        if (bodyContent.isNotBlank()) {
+                            curlCommand.append(" -d \"--$boundary\\n$bodyContent\"")
+                        }
+                    }
+                }
+
+                else -> {
+                    // For other content types, treat as raw data (this could be plain text, XML, etc.)
+                    val buffer = Buffer()
+                    it.writeTo(buffer)
+                    val bodyContent = buffer.readString(StandardCharsets.UTF_8)
+                    if (bodyContent.isNotBlank()) {
+                        curlCommand.append(" -d \"$bodyContent\"")
+                    }
+                }
+            }
+        }
+
+        return curlCommand.toString()
+    }
+
 }
 
