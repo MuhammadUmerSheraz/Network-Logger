@@ -1,11 +1,11 @@
 package com.umer.networklogger
 
 import android.app.Application
-import umer.sheraz.shakelibrary.ShakeLibrary
+import umer.sheraz.shakelibrary.NetworkLogger
 
 class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
-        ShakeLibrary.initialize(this) // Start shake detection globally
+        NetworkLogger.initialize(this) // Initialize it in the Application class
     }
 }

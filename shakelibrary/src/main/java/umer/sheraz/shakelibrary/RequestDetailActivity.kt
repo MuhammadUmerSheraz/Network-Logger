@@ -14,8 +14,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import org.json.JSONObject
-import umer.sheraz.shakelibrary.ShakeLibrary.currentLogs
-import umer.sheraz.shakelibrary.ShakeLibrary.isActivityDetailOpened
+import umer.sheraz.shakelibrary.NetworkLogger.currentLogs
+import umer.sheraz.shakelibrary.NetworkLogger.isActivityDetailOpened
 
 class RequestDetailActivity : AppCompatActivity() {
 

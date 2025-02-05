@@ -12,7 +12,6 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import umer.sheraz.shakelibrary.ShakeLibrary
 
 class MainActivity : AppCompatActivity() {
     var progress_circular: ProgressBar? = null

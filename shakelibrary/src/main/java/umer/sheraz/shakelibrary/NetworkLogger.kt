@@ -12,7 +12,7 @@ import com.google.gson.GsonBuilder
 import java.io.File
 import java.lang.ref.WeakReference
 
-object ShakeLibrary : Application.ActivityLifecycleCallbacks {
+object NetworkLogger : Application.ActivityLifecycleCallbacks {
     private var shakeDetector: ShakeDetector? = null
     private var activityCount = 0
     var isActivityOpened = false

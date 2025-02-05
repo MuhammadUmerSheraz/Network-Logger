@@ -11,9 +11,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
-import umer.sheraz.shakelibrary.ShakeLibrary.clearLogs
-import umer.sheraz.shakelibrary.ShakeLibrary.getRequestId
-import umer.sheraz.shakelibrary.ShakeLibrary.isActivityOpened
+import umer.sheraz.shakelibrary.NetworkLogger.clearLogs
+import umer.sheraz.shakelibrary.NetworkLogger.getRequestId
+import umer.sheraz.shakelibrary.NetworkLogger.isActivityOpened
 
 class ShakeActivity : AppCompatActivity() {
     lateinit var tv_no_items: TextView

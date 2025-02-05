@@ -10,9 +10,9 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import umer.sheraz.shakelibrary.ShakeLibrary.currentLogs
-import umer.sheraz.shakelibrary.ShakeLibrary.getApiLogFromFile
-import umer.sheraz.shakelibrary.ShakeLibrary.isActivityDetailOpened
+import umer.sheraz.shakelibrary.NetworkLogger.currentLogs
+import umer.sheraz.shakelibrary.NetworkLogger.getApiLogFromFile
+import umer.sheraz.shakelibrary.NetworkLogger.isActivityDetailOpened
 import java.text.SimpleDateFormat
 import java.util.ArrayList
 import java.util.Date

@@ -8,8 +8,8 @@ import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 import okio.Buffer
-import umer.sheraz.shakelibrary.ShakeLibrary.saveApiLogToFile
-import umer.sheraz.shakelibrary.ShakeLibrary.saveRequestId
+import umer.sheraz.shakelibrary.NetworkLogger.saveApiLogToFile
+import umer.sheraz.shakelibrary.NetworkLogger.saveRequestId
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
 
