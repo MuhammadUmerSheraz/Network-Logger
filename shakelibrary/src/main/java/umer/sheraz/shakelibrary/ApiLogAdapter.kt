@@ -38,7 +38,7 @@ class ApiLogAdapter(
 
             val log = apiCallLogs[position]
             holder.tvMethod.text = log.method
-            holder.log.text = log.apiName
+            holder.log.text = "${log.apiName} (${log.requestDuration?:""})"
             holder.tvTimestamp.text = formatDate(log.timestamp)
             if (log.apiIsSuccessful == true) {
                 holder.logParent.setCardBackgroundColor(

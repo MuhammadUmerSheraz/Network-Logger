@@ -96,7 +96,12 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
+                    <TextView
+                        android:id="@+id/api_method"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_11sdp" />
                     <TextView
                         android:id="@+id/tv_api_name"
                         android:layout_width="match_parent"
@@ -293,6 +298,12 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <TextView
+                        android:id="@+id/requestCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                      />
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/body_rcv"
                         android:layout_width="match_parent"

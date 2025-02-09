@@ -12,6 +12,7 @@ data class ApiCallLog(
     var apiIsSuccessful: Boolean? = null,
     var apiHttpCode: Int? = null,
     val curlRequest: String? = null,
+    val requestDuration: String ?="",
     val timestamp: Long = System.currentTimeMillis(),
     val id: String = UUID.randomUUID().toString()
 

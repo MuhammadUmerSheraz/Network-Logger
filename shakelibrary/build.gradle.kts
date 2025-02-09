@@ -11,7 +11,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.MuhammadUmerSheraz"
                 artifactId = "Network-Logger"
-                version = "1.0.0"
+                version = "1.0.10"
             }
         }
     }
@@ -23,8 +23,6 @@ android {
 
     defaultConfig {
         minSdk = 24
-
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

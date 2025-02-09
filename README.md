@@ -1,7 +1,7 @@
 
 # Network Logger
 
-Network Logger is a comprehensive yet lightweight debugging tool for testing team(QA). Developed in Kotlin, this library captures critical information for every network request, including headers, content type, HTTP method, API name, parameters, API response, HTTP code, and a ready-to-copy curl request. It empowers users with the ability to:
+Network Logger is a comprehensive yet lightweight debugging tool for testing team(QA). Developed in Kotlin, this library captures critical information for every network request, including headers, content type, HTTP method, API name, parameters, API response, HTTP code,Request Time and a ready-to-copy curl request. It empowers users with the ability to:
 * Copy Complete Requests & Responses: Easily share or analyze network calls with copy-to-clipboard functionality.
 * View Beautiful JSON Trees: Automatically format JSON responses into an intuitive tree view, enhancing readability.
 * Toggle Dark/Light Modes: Seamlessly switch between dark and light themes to match your app's design.
@@ -28,7 +28,7 @@ Step 2. Add the dependency
 
 ```bash
  	dependencies {
-	        implementation 'com.github.MuhammadUmerSheraz:Network-Logger:1.0.9'
+	        implementation 'com.github.MuhammadUmerSheraz:Network-Logger:1.0.10'
 	}
 ```
 

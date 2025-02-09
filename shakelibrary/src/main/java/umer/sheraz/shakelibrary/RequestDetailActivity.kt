@@ -39,13 +39,16 @@ class RequestDetailActivity : AppCompatActivity() {
         val nonJsonResponse = findViewById<TextView>(R.id.non_json_response)
         val nonJsonParams = findViewById<TextView>(R.id.non_json_params)
         val apiName = findViewById<TextView>(R.id.tv_api_name)
+        val apiMethod = findViewById<TextView>(R.id.api_method)
         val apiParams = findViewById<RecyclerView>(R.id.rcv_api_params)
         val closeIV = findViewById<ImageView>(R.id.closeIV)
         val recyclerView = findViewById<RecyclerView>(R.id.body_rcv)
+        val requestCode = findViewById<TextView>(R.id.requestCode)
         val apiHeader = findViewById<RecyclerView>(R.id.rcv_api_header)
         val nonJsonHeader = findViewById<TextView>(R.id.non_json_header)
 
         val log = currentLogs
+        requestCode.text = "Response Code: ${log.apiHttpCode}"
 
         if (!log.headers.isNullOrBlank()) {
             try {
@@ -62,10 +65,9 @@ class RequestDetailActivity : AppCompatActivity() {
             copyHeaders.isVisible = false
         }
 
-        apiName.text = log.apiName
-
+        apiName.text ="${log.apiName} (${log.requestDuration?:""})"
+        apiMethod.text= log.method
         if (!log.apiParameters.isNullOrBlank()) {
-
             val contentType = log.contentType
             // Check if it's JSON (model class) or form data
             if (contentType?.contains("json") == true) {

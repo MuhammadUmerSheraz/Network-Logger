@@ -40,10 +40,12 @@ class ApiLoggingInterceptor() : Interceptor {
 
         // Build cURL command
         val curlRequest = buildCurlCommand(request)
+        val startTime = System.nanoTime()
 
         // Proceed with the request
         val response = chain.proceed(request)
 
+        val durationMs = (System.nanoTime() - startTime) / 1_000_000
 
         // Capture response body
         val responseBodyString: String? = response.body?.let { body ->
@@ -67,7 +69,8 @@ class ApiLoggingInterceptor() : Interceptor {
             apiParameters = apiParameters,
             apiIsSuccessful = apiIsSuccessful,
             apiHttpCode = response.code,
-            curlRequest = curlRequest
+            curlRequest = curlRequest,
+            requestDuration = "${durationMs}ms"
         )
 
         // Save the unique request ID to SharedPreferences
@@ -77,6 +80,7 @@ class ApiLoggingInterceptor() : Interceptor {
                     method = apiCallLog.method,
                     apiName = apiCallLog.apiName,
                     apiIsSuccessful = apiCallLog.apiIsSuccessful,
+                    requestDuration = apiCallLog.requestDuration,
                     id = apiCallLog.id,
                 )
             )
