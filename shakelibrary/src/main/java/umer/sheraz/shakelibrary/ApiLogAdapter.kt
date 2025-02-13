@@ -66,7 +66,6 @@ class ApiLogAdapter(
                     currentLogs = it
                     isActivityDetailOpened = true
                     val intent = Intent(context, RequestDetailActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     val options = ActivityOptions.makeCustomAnimation(
                         context,
                         R.anim.slide_in_bottom,

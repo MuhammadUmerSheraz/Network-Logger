@@ -25,7 +25,7 @@ class RequestDetailActivity : AppCompatActivity() {
 
         enableEdgeToEdge()
         setContentView(R.layout.dialog_log_detail)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.detail_screen)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets

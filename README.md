@@ -28,7 +28,7 @@ Step 2. Add the dependency
 
 ```bash
  	dependencies {
-	        implementation 'com.github.MuhammadUmerSheraz:Network-Logger:1.0.10'
+	        implementation 'com.github.MuhammadUmerSheraz:Network-Logger:1.0.12'
 	}
 ```
 
