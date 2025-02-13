@@ -16,7 +16,7 @@
         android:src="@drawable/ic_cross"
         android:textColor="@color/white" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/copy_curl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:text="Copy CURL Request" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/tv_cp_full_request"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

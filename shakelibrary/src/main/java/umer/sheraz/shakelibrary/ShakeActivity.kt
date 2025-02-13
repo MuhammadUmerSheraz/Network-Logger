@@ -2,12 +2,12 @@ package umer.sheraz.shakelibrary
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
 import umer.sheraz.shakelibrary.NetworkLogger.clearLogs
 import umer.sheraz.shakelibrary.NetworkLogger.getRequestId
 import umer.sheraz.shakelibrary.NetworkLogger.isActivityOpened
@@ -21,7 +21,7 @@ class ShakeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_shake)
         tv_no_items = findViewById<TextView>(R.id.tv_no_items)
 
-        val btn_clear = findViewById<MaterialButton>(R.id.btn_clear)
+        val btn_clear = findViewById<Button>(R.id.btn_clear)
         recyclerView = findViewById(R.id.rv_api_log)
         recyclerView.layoutManager = LinearLayoutManager(this)
         btn_clear.setOnClickListener {

@@ -39,7 +39,7 @@
         android:layout_margin="@dimen/_5sdp"
         tools:listitem="@layout/api_log_item" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/btn_clear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
