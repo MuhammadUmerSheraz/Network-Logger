@@ -3,13 +3,13 @@ package umer.sheraz.shakelibrary
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import org.json.JSONObject
 import umer.sheraz.shakelibrary.NetworkLogger.currentLogs
 import umer.sheraz.shakelibrary.NetworkLogger.isActivityDetailOpened
@@ -20,8 +20,8 @@ class RequestDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_log_detail)
-        val copyCurl = findViewById<Button>(R.id.copy_curl)
-        val copyFullRequest = findViewById<Button>(R.id.tv_cp_full_request)
+        val copyCurl = findViewById<MaterialButton>(R.id.copy_curl)
+        val copyFullRequest = findViewById<MaterialButton>(R.id.tv_cp_full_request)
         val copyApiName = findViewById<TextView>(R.id.tv_cp_api_name)
         val copyParameters = findViewById<TextView>(R.id.tv_cp_params)
         val copyResponse = findViewById<TextView>(R.id.tv_cp_response)
