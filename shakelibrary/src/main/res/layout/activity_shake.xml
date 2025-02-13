@@ -37,7 +37,7 @@
         android:layout_above="@+id/btn_clear"
         android:layout_below="@+id/closeIV"
         android:layout_margin="@dimen/_5sdp"
-        tools:listitem="@layout/item_api_log" />
+        tools:listitem="@layout/api_log_item" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_clear"

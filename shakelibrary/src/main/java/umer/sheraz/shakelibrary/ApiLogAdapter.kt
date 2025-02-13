@@ -27,7 +27,7 @@ class ApiLogAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_api_log, parent, false)
+            .inflate(R.layout.api_log_item, parent, false)
         return MyViewHolder(itemView)
     }
 
@@ -106,8 +106,8 @@ class ApiLogAdapter(
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var logParent: CardView = itemView.findViewById(R.id.cl_log)
-        var log: TextView = itemView.findViewById(R.id.tv_api_log)
+        var logParent: CardView = itemView.findViewById(R.id.logParent)
+        var log: TextView = itemView.findViewById(R.id.log)
         var tvTimestamp: TextView = itemView.findViewById(R.id.tv_timestamp)
         var tvMethod: TextView = itemView.findViewById(R.id.tv_api_method)
     }

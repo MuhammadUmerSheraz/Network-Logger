@@ -11,7 +11,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.MuhammadUmerSheraz"
                 artifactId = "Network-Logger"
-                version = "1.0.10"
+                version = "1.0.12"
             }
         }
     }
